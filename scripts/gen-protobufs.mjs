@@ -60,6 +60,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROTOBUFS_DIR = join(__dirname, "..", "src", "protobufs");
 const TMP_DIR = join(PROTOBUFS_DIR, ".tmp");
 const COSMOS_DIR = join(PROTOBUFS_DIR, "cosmos");
+const TM_DIR = join(PROTOBUFS_DIR, "tendermint");
+const SAFE_DIRS = [COSMOS_DIR, TM_DIR];
 /** Generates a unique dirname from `repo` to use in `TMP_DIR`. */
 const id = (/** @type {string} */ repo) => repo.replace(/[#/]/g, "-");
 
@@ -72,12 +74,12 @@ console.log("Initialising directories...");
     // Remove all directories and files in PROTOBUFS_DIR except for the cosmos directory
     const entries = globSync(join(PROTOBUFS_DIR, "*"));
     for (const entry of entries) {
-      if (entry !== COSMOS_DIR && entry !== TMP_DIR) {
+      if (!SAFE_DIRS.includes(entry) && entry !== TMP_DIR) {
         rmSync(entry, { recursive: true, force: true });
       }
     }
   }
-  
+
   // Clean up the temp directory
   if (existsSync(TMP_DIR)) {
     rmSync(TMP_DIR, { recursive: true, force: true });

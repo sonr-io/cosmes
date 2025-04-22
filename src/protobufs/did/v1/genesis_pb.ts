@@ -311,6 +311,51 @@ export class Document extends Message<Document> {
 }
 
 /**
+ * PublicKey defines a public key
+ *
+ * @generated from message did.v1.PublicKey
+ */
+export class PublicKey extends Message<PublicKey> {
+  /**
+   * @generated from field: string key_type = 1;
+   */
+  keyType = "";
+
+  /**
+   * @generated from field: bytes key_value = 2;
+   */
+  keyValue = new Uint8Array(0);
+
+  constructor(data?: PartialMessage<PublicKey>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "did.v1.PublicKey";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "key_type", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "key_value", kind: "scalar", T: 12 /* ScalarType.BYTES */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PublicKey {
+    return new PublicKey().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PublicKey {
+    return new PublicKey().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PublicKey {
+    return new PublicKey().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: PublicKey | PlainMessage<PublicKey> | undefined, b: PublicKey | PlainMessage<PublicKey> | undefined): boolean {
+    return proto3.util.equals(PublicKey, a, b);
+  }
+}
+
+/**
  * VerificationMethod defines a verification method
  *
  * @generated from message did.v1.VerificationMethod
